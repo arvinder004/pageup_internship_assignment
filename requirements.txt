@@ -1,3 +1,0 @@
-open-cv
-face_recognition
-pickle
