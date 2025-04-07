@@ -49,13 +49,13 @@ while True:
         else:
             # Draw a rectangle around the face
             top, right, bottom, left = [v * 4 for v in face_location]
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-            cv2.putText(frame, "Press 's' to save", (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
+            cv2.putText(frame, "Press 's' to save", (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
         # Display the name of the recognized face
         top, right, bottom, left = [v * 4 for v in face_location]
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-        cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+        cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
+        cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
     # Display the video feed
     cv2.imshow("Face Recognition", frame)
