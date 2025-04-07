@@ -1,6 +1,5 @@
 # Takes a video input and recognizes faces using pre-trained encodings and saves the data of first occurance and last occurance in a .csv file
 
-
 import cv2
 import face_recognition
 import os
