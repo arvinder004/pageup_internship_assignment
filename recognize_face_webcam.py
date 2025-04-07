@@ -4,10 +4,7 @@ import cv2
 import face_recognition
 import os
 import pickle
-from datetime import datetime
 
-KNOWN_FACES_DIR = "known_faces"
-os.makedirs(KNOWN_FACES_DIR, exist_ok=True)
 
 ENCODINGS_FILE = "face_encodings.pkl"
 if os.path.exists(ENCODINGS_FILE):
