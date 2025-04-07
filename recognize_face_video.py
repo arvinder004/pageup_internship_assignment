@@ -2,8 +2,11 @@ import cv2
 import face_recognition
 import os
 import pickle
+import csv
+from datetime import datetime
 
 ENCODINGS_FILE = "face_encodings.pkl"
+LOG_FILE = "recognized_faces_log.csv"
 
 # Load existing face encodings
 if os.path.exists(ENCODINGS_FILE):
@@ -14,9 +17,16 @@ else:
     print("No known faces found. Please save faces first.")
     exit()
 
-video_path = 'video2.mp4'
+# Dictionary to track first and last occurrences of each face
+face_occurrences = {}
 
-# Open the video file
+# Create or open the log file
+if not os.path.exists(LOG_FILE):
+    with open(LOG_FILE, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Name", "First Seen", "Last Seen"])  # Add headers
+
+video_path = 'video2.mp4'
 video_capture = cv2.VideoCapture(video_path)
 if not video_capture.isOpened():
     print("Error: Could not open video file.")
@@ -46,13 +56,22 @@ while True:
             match_index = matches.index(True)
             name = known_face_names[match_index]
 
+            # Get the current date and time
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # Update first and last occurrences in the dictionary
+            if name not in face_occurrences:
+                face_occurrences[name] = {"first_seen": current_time, "last_seen": current_time}
+            else:
+                face_occurrences[name]["last_seen"] = current_time
+
         # Scale face location back to the original frame size
         top, right, bottom, left = [v * 2 for v in face_location]
 
         # Draw a rectangle around the face
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
+        cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
         # Display the name of the recognized face
-        cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+        cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
     # Display the video frame
     cv2.imshow('Video', frame)
@@ -61,6 +80,13 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):
         break
+
+# Write the first and last occurrences to the log file
+with open(LOG_FILE, "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Name", "First Seen", "Last Seen"])  # Add headers
+    for name, occurrences in face_occurrences.items():
+        writer.writerow([name, occurrences["first_seen"], occurrences["last_seen"]])
 
 # Release resources
 video_capture.release()
