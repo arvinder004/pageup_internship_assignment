@@ -24,12 +24,11 @@ if not os.path.exists(LOG_FILE):
         writer.writerow(["Name", "First Seen", "Last Seen"])
 
 capture = cv2.VideoCapture(0)
-print("Press 'q' to quit.")
 
 while True:
     ret, frame = capture.read()
     if not ret:
-        print("End of video or error reading frame")
+        print("Error loading frame")
         break
 
     small_frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
@@ -64,10 +63,6 @@ while True:
             cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
     cv2.imshow("Detecting faces", frame)
-
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord("q"):
-        break
 
 capture.release()
 cv2.destroyAllWindows()
