@@ -65,7 +65,7 @@ while True:
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
         cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
-    cv2.imshow('Video', frame)
+    cv2.imshow('Detecting faces from video', frame)
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):

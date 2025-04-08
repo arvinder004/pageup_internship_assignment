@@ -46,7 +46,7 @@ while True:
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 3)
         cv2.putText(frame, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
-    cv2.imshow("Face Recognition", frame)
+    cv2.imshow("Add your Face", frame)
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
