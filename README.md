@@ -1,7 +1,5 @@
 # Object Detection for Employee Attendance via CCTV Footage 
 
-### The `PROCESS` folder contains the files that i tested previously to identify the best model
-
 ## Information about the files.
 1. First use the `add_faces.py` file to add the face data and encodings with the name of the person, the data will be saved in the `data/face_data.pkl`.
 2. Now you can use the `in_camera.py` file to see the incoming employees and mark thier attendance in the `emp_attendance.csv`.
