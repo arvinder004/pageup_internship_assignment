@@ -9,8 +9,12 @@ from datetime import datetime
 
 video = cv2.VideoCapture(0)
 
-with open('data/face_data.pkl', 'rb') as f:
-    face_data = pickle.load(f)
+try:
+    with open('data/face_data.pkl', 'rb') as f:
+        face_data = pickle.load(f)
+except FileNotFoundError:
+    print("Error: The face data file is empty or corrupted.")
+    exit(1)
 
 known_names = []
 known_encodings = []
